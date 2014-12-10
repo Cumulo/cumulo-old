@@ -1,0 +1,28 @@
+{
+  "name": "cumulo",
+  "version": "0.0.1",
+  "description": "Server data store built by learning from Flux",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cumulo",
+    "flux",
+    "react"
+  ],
+  "author": "jiyinyiyong",
+  "license": "MIT",
+  "devDependencies": {
+    "coffee-script": "^1.8.0",
+    "gulp": "^3.8.10",
+    "gulp-coffee": "^2.2.0",
+    "gulp-plumber": "^0.6.6",
+    "gulp-watch": "^3.0.0",
+    "gutil": "^1.5.5"
+  },
+  "dependencies": {
+    "jsondiffpatch": "^0.1.22",
+    "lodash": "^2.4.1"
+  }
+}
