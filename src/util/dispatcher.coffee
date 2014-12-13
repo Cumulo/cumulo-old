@@ -3,9 +3,9 @@ module.exports = class CumuloDispatcher
   constructor: ->
     @_listeners = []
 
-  dispatch: ->
+  dispatch: (action) ->
     @_listeners.forEach (cb) =>
-      cb()
+      cb action
 
   register: (cb) ->
     if cb in @_listeners

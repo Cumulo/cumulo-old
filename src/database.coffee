@@ -2,24 +2,41 @@
 path = require 'path'
 fs = require 'fs'
 time = require './util/time'
+lodash = require 'lodash'
 
-dbPath = path.join __dirname, 'database.json'
 
-exports.init = (options) ->
-  # required options
-  dbPath = options.dbPath
-  initialDatabase = options.initialDatabase
-  shrinkDatabase = options.shrinkDatabase
+module.exports =
+  init: (options) ->
+    lodash.assign @, options
+    @dbPath
 
-  try
-    raw = fs.readFileSync dbFile, 'utf8'
-    database = JSON.parse raw
+    @loadDisk()
+    @startSaving()
 
-  unless database?
-    database = initialDatabase
+  loadDisk: ->
+    try
+      raw = fs.readFileSync @dbPath, 'utf8'
+      database = JSON.parse raw
+    catch error
+      console.error 'error parsing database', error
+      database = @initialData
 
-  time.repeat 10000, ->
+    # trigger onLoad event
+    @onLoad database
+
+  startSaving: ->
+    time.interval @duration, =>
+      @saveData()
+
+  saveData: ->
     console.info 'persistent database', (new Date)
-    database = shrinkDatabase()
+    database = @gatherData()
     raw = JSON.stringify database, null, 2
-    fs.writeFileSync dbPath, raw
+    fs.writeFileSync @dbPath, raw
+
+  # rewrite in project
+  dbPath: 'database.json'
+  duration: 10000
+  initialData: ->
+  gatherData: ->
+  onLoad: ->

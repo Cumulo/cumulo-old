@@ -1,5 +1,6 @@
 
 lodash = require 'lodash'
+
 Dispatcher = require './util/dispatcher'
 
 module.exports = class CumuloStore extends Dispatcher
@@ -11,5 +12,5 @@ module.exports = class CumuloStore extends Dispatcher
     @data = data
     @dispatch()
 
-  clone: ->
+  get: ->
     lodash.cloneDeep @data

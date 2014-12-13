@@ -2,6 +2,7 @@
 routes = {}
 
 exports.dispatch = (state, action) ->
+  if @display? then @display state, action
   handler = routes[action.name]
   if handler?
   then handler state, action.data

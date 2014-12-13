@@ -1,12 +1,24 @@
 
-records = []
+lodash = require 'lodash'
+Dispatcher = require './util/dispatcher'
 
-exports.register = (state) ->
-  records.push state
+module.exports = class CumuloState extends Dispatcher
+  constructor: (options) ->
+    super
+    lodash.assign @, options
+    @records = []
 
-exports.unregister = (state) ->
-  records = records.filter (obj) ->
-    obj isnt state
+  record: (state) ->
+    @records.push state
 
-exports.each = (f) ->
-  records.forEach f
+  unrecord: (state) ->
+    @records = @records.filter (obj) ->
+      obj isnt state
+
+  each: (f) ->
+    @records.forEach (state) ->
+      f state
+
+  # rewrite in project
+  sync: ->
+  patch: ->

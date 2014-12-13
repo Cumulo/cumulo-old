@@ -14,7 +14,7 @@ gulp.task 'watch', ->
   plumber = require 'gulp-plumber'
   coffee = require 'gulp-coffee'
 
-  watch('./src')
+  watch('./src/**/*.coffee')
   .pipe plumber()
   .pipe coffee(bare: yes)
   .pipe gulp.dest('lib/')

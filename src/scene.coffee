@@ -1,21 +1,20 @@
 
+lodash = require 'lodash'
 time = require './util/time'
 
 module.exports = class CumuloScene
   constructor: (options) ->
-    @data = {}
+    # initial data from project
+    lodash.assign @, options
+
+    @data = @render()
     @changed = no
-
-    @duration = options.duration or 400
-    @render = options.render
-    @broadcast = options.broadcast
-
     @startLoop()
+    @listen()
 
   startLoop: ->
-    time.repeat =>
+    time.interval @duration, =>
       @detectChange()
-    , @duration
 
   detectChange: ->
     if @changed
@@ -23,7 +22,12 @@ module.exports = class CumuloScene
       @changed = no
       @broadcast()
 
+  get: ->
+    lodash.cloneDeep @data
+
+  # overwrite this in project
+  data: null
+  duration: 400
   render: ->
-    # overwrite this in project
   broadcast: ->
-    # overwrite this in project
+  listen: ->
