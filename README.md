@@ -1,5 +1,5 @@
 
-Cumulo: Flux like architechture on server
+Cumulo: Flux like architecture on server
 ----
 
 Cumulo is a realtime framework for small apps.
